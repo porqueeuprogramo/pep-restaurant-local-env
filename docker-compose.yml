@@ -32,3 +32,7 @@ services:
       - "19001:9001"
     depends_on:
       - postgres
+    volumes:
+      - ./sonarqube/data:/opt/sonarqube/data
+      - ./sonarqube/logs:/opt/sonarqube/logs
+      - ./sonarqube/extensions:/opt/sonarqube/extensions
