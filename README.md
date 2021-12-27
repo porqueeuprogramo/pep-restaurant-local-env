@@ -14,3 +14,5 @@
     wsl -d docker-desktop
     sysctl -w vm.max_map_count=262144
   
+* Add 127.0.0.1 keycloak to host
+  file to access keycloak admin console
