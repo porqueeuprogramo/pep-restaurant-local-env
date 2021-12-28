@@ -8,17 +8,21 @@ services:
       - "5432:5432"
     env_file:
       - docker-compose.env
+    restart: always
+    networks:
+      - app
 
   keycloak:
     build:
       context: ../pep-keycloak
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8081:8081"
     env_file:
       - docker-compose.env
-    depends_on:
-      - postgres
+    restart: always
+    networks:
+      - app
 
   sonarqube:
     build:
@@ -36,3 +40,36 @@ services:
       - ./sonarqube/data:/opt/sonarqube/data
       - ./sonarqube/logs:/opt/sonarqube/logs
       - ./sonarqube/extensions:/opt/sonarqube/extensions
+    restart: always
+    networks:
+      - app
+
+  pep-restaurant-ms-manager:
+    build:
+      context: ../pep-restaurant-ms-manager
+      dockerfile: Dockerfile
+    env_file:
+      - docker-compose.env
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - app
+
+  pep-restaurant-ms-bff:
+    build:
+      context: ../pep-restaurant-ms-bff
+      dockerfile: Dockerfile
+    env_file:
+      - docker-compose.env
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
