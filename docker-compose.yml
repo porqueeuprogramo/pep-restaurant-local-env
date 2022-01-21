@@ -11,10 +11,10 @@ services:
     restart: always
     networks:
       - app
-
+      
   keycloak:
     build:
-      context: ../pep-keycloak
+      context: ./pep-keycloak
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
@@ -46,7 +46,7 @@ services:
 
   pep-restaurant-ms-manager:
     build:
-      context: ../pep-restaurant-ms-manager
+      context: ./pep-restaurant-ms-manager
       dockerfile: Dockerfile
     env_file:
       - docker-compose.env
@@ -60,7 +60,7 @@ services:
 
   pep-restaurant-ms-bff:
     build:
-      context: ../pep-restaurant-ms-bff
+      context: ./pep-restaurant-ms-bff
       dockerfile: Dockerfile
     env_file:
       - docker-compose.env
