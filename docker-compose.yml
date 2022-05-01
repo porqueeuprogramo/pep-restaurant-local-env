@@ -14,7 +14,7 @@ services:
       
   keycloak:
     build:
-      context: ./pep-keycloak
+      context: ../pep-keycloak
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
