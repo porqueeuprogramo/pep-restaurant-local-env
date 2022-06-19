@@ -12,7 +12,6 @@ services:
     networks:
       - app
 
-
   keycloak:
     build:
       context: ../pep-keycloak
