@@ -11,7 +11,8 @@ services:
     restart: always
     networks:
       - app
-      
+
+
   keycloak:
     build:
       context: ../pep-keycloak
