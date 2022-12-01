@@ -28,17 +28,16 @@ services:
     build:
       context: ./sonarqube
       dockerfile: Dockerfile
-    user: sonarqube
     env_file:
       - docker-compose.env
     ports:
       - "19000:9000"
-      - "19001:9001"
     depends_on:
       - postgres
     volumes:
       - ./sonarqube/data:/opt/sonarqube/data
       - ./sonarqube/logs:/opt/sonarqube/logs
+      - ./sonarqube/conf:/opt/sonarqube/conf
       - ./sonarqube/extensions:/opt/sonarqube/extensions
     restart: always
     networks:
@@ -46,7 +45,7 @@ services:
 
   pep-restaurant-ms-manager:
     build:
-      context: ./pep-restaurant-ms-manager
+      context: ../pep-restaurant-ms-manager
       dockerfile: Dockerfile
     env_file:
       - docker-compose.env
@@ -60,7 +59,7 @@ services:
 
   pep-restaurant-ms-bff:
     build:
-      context: ./pep-restaurant-ms-bff
+      context: ../pep-restaurant-ms-bff
       dockerfile: Dockerfile
     env_file:
       - docker-compose.env
