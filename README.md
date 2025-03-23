@@ -30,3 +30,54 @@ $ docker-compose build -t pep-keycloak
 # Run 'docker-compose.yml' which has some configuration for what you need and to build and deploy the necessary containers
 $ docker-compose up -d 
 ```
+
+# Local Development
+
+## Kubernetes
+
+### Setup
+
+#### Setup Kubernetes cluster
+
+Activate Kubernetes in the Docker Desktop settings
+
+#### Install the Kubernetes UI
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+- Change kubectl context to Docker Desktop
+```
+kubectl config use-context docker-desktop
+```
+- Install the image for Kubernetes Dashboard
+```
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard
+```
+```
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+```
+```
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+```
+The Kubernetes Dashboard should be available at
+**https://localhost:8443**
+
+
+#### Create an admin user for the Kubernetes Dashboard
+https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+
+````
+kubectl apply -f kubernetes/dashboard-adminuser.yaml
+````
+```
+kubectl apply -f kubernetes/admin-cluster-role-binding.yml
+```
+
+#### Get the Bearer Token for the admin user
+
+```
+kubectl -n kubernetes-dashboard create token admin-user
+```
+
+helm upgrade --install pep-restaurant-ms-manager kubernetes --set app.properties.content=default -- set image.tag=latest -f kubernetes/values/emea/values-test.yaml --namespace=default
+
+
