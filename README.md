@@ -80,4 +80,8 @@ kubectl -n kubernetes-dashboard create token admin-user
 
 helm upgrade --install pep-restaurant-ms-manager kubernetes --set app.properties.content=default -- set image.tag=latest -f kubernetes/values/emea/values-test.yaml --namespace=default
 
+## Kafka
 
+### Start Kafka with 3 brokers and schema registry:
+```
+docker-compose -f kafka.yml  up -d
