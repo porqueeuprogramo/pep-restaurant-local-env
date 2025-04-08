@@ -85,3 +85,11 @@ helm upgrade --install pep-restaurant-ms-manager kubernetes --set app.properties
 ### Start Kafka with 3 brokers and schema registry:
 ```
 docker-compose -f kafka.yml  up -d
+```
+
+## Kafka
+
+### Start Kafka with 3 brokers and schema registry:
+```
+docker-compose -f flink.yml  up -d
+```

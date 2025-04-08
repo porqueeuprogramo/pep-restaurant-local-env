@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  jobmanager:
+    image: apache/flink:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    command: jobmanager
+
+  taskmanager:
+    image: apache/flink:latest
+    depends_on:
+      - jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    command: taskmanager
